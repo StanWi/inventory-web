@@ -1,0 +1,105 @@
+Software
+Python 3.6.2 (v3.6.2:5fd33b5, Jul  8 2017, 04:14:34) [MSC v.1900 32 bit (Intel)] on win32
+git version 2.16.1.windows.4
+
+cd StanWi\Projects\inventory-web
+python -m venv myvenv
+myvenv\Scripts\activate
+python -m pip install --upgrade pip
+pip install django~=1.11.0
+django-admin.exe startproject mysite .
+
+mysite/settings.py
+ALLOWED_HOSTS = ['127.0.0.1', 'inventory.pythonanywhere.com']
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'inventory',
+]
+LANGUAGE_CODE = 'ru-ru'
+TIME_ZONE = 'Asia/Beijing'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+python manage.py migrate
+python manage.py runserver
+
+python manage.py startapp inventory
+
+inventory/models.py -> class Vendor(models.Model) ...
+
+python manage.py makemigrations inventory
+python manage.py migrate inventory
+
+inventory/admin.py
+from django.contrib import admin
+from .models import Vendor
+admin.site.register(Vendor)
+
+python manage.py createsuperuser
+
+git init
+
+.gitignore
+*.pyc
+*~
+__pycache__
+myvenv
+db.sqlite3
+/static
+.DS_Store
+
+git status
+git add --all .
+git commit -m "Inventory app, first commit"
+
+github.com create repository
+
+git remote add origin https://github.com/StanWi/inventory-web.git
+git push -u origin master
+git config --global http.proxy http://xxx:yyy
+
+mysite/urls.py
+create inventory/urls.py
+create inventory/templates/inventory/post_list.html
+
+git add --all .
+git commit -m "Changed the HTML for the site"
+# git push
+
+python manage.py shell
+from inventory.models import Vendor
+Vendor.objects.all()
+from django.contrib.auth.models import User
+User.object.all()
+me = User.objects.get(username='StanWi')
+Vendor.objects.create(author=me, name='Sample text', country='Test')
+Vendor.objects.all()
+Vendor.objects.filter(author=me)
+Vendor.objects.filter(name__contains='z')
+from django.utils import timezone
+Vendor.objects.filter(published_date__lte=timezone.now())
+vendor = Vendor.objects.get(name="Sample text")
+vendor.publish()
+Vendor.objects.filter(published_date__lte=timezone.now())
+Vendor.objects.order_by('created_date')
+Vendor.objects.order_by('-created_date')
+Vendor.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+exit()
+
+inventory/views.py
+
+git status
+git add --all .
+git status
+git commit -m "Modified templates to display vendors from database"
+git status
+# git push
+
+create inventory/templates/inventory/base.html
+create inventory/forms.py
+
+git commit -m "Added views to create/edit blog post inside the site"

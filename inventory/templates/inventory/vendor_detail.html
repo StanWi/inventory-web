@@ -7,6 +7,9 @@
                 {{ vendor.published_date }}
             </div>
         {% endif %}
+        {% if user.is_authenticated %}
+        <a class="btn btn-default" href="{% url 'vendor_edit' pk=vendor.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
         <h1>{{ vendor.name }}</h1>
         <p>{{ vendor.country|linebreaksbr }}</p>
     </div>
