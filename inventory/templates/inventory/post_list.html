@@ -1,17 +1,12 @@
-<html>
-<head>
-<title>Inventory</title>
-</head>
-<body>
-<div>
-<h1><a href="/">Inventory</a></h1>
-</div>
-{% for vendor in vendors %}
-    <div>
-        <p>published: {{ vendor.published_date }}</p>
-        <h1><a href="">{{ vendor.name }}</a></h1>
-        <p>{{ vendor.country|linebreaksbr }}</p>
-    </div>
-{% endfor %}
-</body>
-</html>
+﻿{% extends 'inventory/base.html' %}
+        {% block content %}
+            {% for vendor in vendors %}
+                <div class="post">
+                    <div class="date">
+                        <p>Опубликовано: {{ vendor.published_date }}</p>
+                    </div>
+                    <h1><a href="{% url 'vendor_detail' pk=vendor.pk %}">{{ vendor.name }}</a></h1>
+                    <p>{{ vendor.country|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        {% endblock %}
