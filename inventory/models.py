@@ -14,3 +14,8 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.name
+
+class Country(models.Model):
+    name = models.CharField(unique=True, max_length=255)
+    capital = models.CharField(unique=True, max_length=255)
+
